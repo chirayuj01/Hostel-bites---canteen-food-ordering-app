@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "391055322213",
+    "project_id": "hostel-bites-d9967",
+    "storage_bucket": "hostel-bites-d9967.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:391055322213:android:437b232c0fe3e8a6296a8c",
+        "android_client_info": {
+          "package_name": "com.example.food_ninja"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWY02kqEeShx3OEOS0pBtlIZKIr9egRV4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
