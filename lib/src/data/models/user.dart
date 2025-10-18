@@ -1,6 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:food_ninja/src/data/models/payment_method.dart';
 import 'package:hive/hive.dart';
 
 // ignore: must_be_immutable

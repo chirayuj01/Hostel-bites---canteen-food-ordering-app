@@ -25,8 +25,6 @@ enum OrderStatus {
         return "Delivered";
       case OrderStatus.canceled:
         return "Canceled";
-      default:
-        return "Pending";
     }
   }
 
@@ -44,8 +42,6 @@ enum OrderStatus {
         return AppColors.deliveredColor;
       case OrderStatus.canceled:
         return AppColors.canceledColor;
-      default:
-        return AppColors.pendingColor;
     }
   }
 }

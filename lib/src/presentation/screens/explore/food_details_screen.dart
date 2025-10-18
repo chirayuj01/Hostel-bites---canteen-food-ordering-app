@@ -9,11 +9,9 @@ import 'package:food_ninja/src/bloc/profile/profile_bloc.dart';
 import 'package:food_ninja/src/bloc/testimonial/testimonial_bloc.dart';
 import 'package:food_ninja/src/data/models/food.dart';
 import 'package:food_ninja/src/data/models/testimonial.dart';
-import 'package:food_ninja/src/presentation/widgets/bullet_point.dart';
 import 'package:food_ninja/src/presentation/widgets/buttons/primary_button.dart';
 import 'package:food_ninja/src/presentation/widgets/image_placeholder.dart';
 import 'package:food_ninja/src/presentation/widgets/buttons/like_button.dart';
-import 'package:food_ninja/src/presentation/widgets/items/testimonial_item.dart';
 import 'package:food_ninja/src/presentation/utils/app_colors.dart';
 import 'package:food_ninja/src/presentation/utils/app_styles.dart';
 import 'package:food_ninja/src/presentation/utils/custom_text_style.dart';
@@ -87,20 +85,14 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
               flexibleSpace: Stack(
                 children: [
                   FlexibleSpaceBar(
-                    background: widget.food.image != null
-                        ? Image.network(
-                            widget.food.image!,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) =>
-                                ImagePlaceholder(
-                              iconData: Icons.fastfood,
-                              iconSize: 100,
-                            ),
-                          )
-                        : ImagePlaceholder(
-                            iconData: Icons.fastfood,
-                            iconSize: 100,
-                          ),
+                    background: Container(
+                      color: AppColors.primaryColor.withAlpha(30),
+                      child: Icon(
+                        Icons.fastfood,
+                        size: 100,
+                        color: AppColors.primaryColor,
+                      ),
+                    ),
                   ),
                   //Border radius
                   Align(
@@ -116,7 +108,7 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                         border: Border(
                           top: BorderSide(
                               width: 0.5,
-                              color: AppColors.kMain.withOpacity(0.4)),
+                              color: AppColors.kMain.withAlpha(100)),
                         ),
                       ),
                     ),
@@ -149,8 +141,8 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                               borderRadius: AppStyles.largeBorderRadius,
                               gradient: LinearGradient(
                                 colors: [
-                                  AppColors.primaryColor.withOpacity(0.1),
-                                  AppColors.primaryDarkColor.withOpacity(0.1),
+                                  AppColors.primaryColor.withValues(alpha: 0.1),
+                                  AppColors.primaryDarkColor.withValues(alpha: 0.1),
                                 ],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,

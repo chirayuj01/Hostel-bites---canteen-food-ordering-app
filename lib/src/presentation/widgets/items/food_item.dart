@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:food_ninja/src/data/models/food.dart';
-import 'package:food_ninja/src/data/services/firestore_db.dart';
 import 'package:food_ninja/src/presentation/widgets/image_placeholder.dart';
 import 'package:food_ninja/src/presentation/utils/app_colors.dart';
 import 'package:food_ninja/src/presentation/utils/app_styles.dart';
@@ -16,21 +15,6 @@ class FoodItem extends StatefulWidget {
 }
 
 class _FoodItemState extends State<FoodItem> {
-  final FirestoreDatabase _db = FirestoreDatabase();
-  String category = "";
-  @override
-  void initState() {
-    super.initState();
-    _db.getDocumentFromReference(widget.food.category).then((value) {
-      if (mounted) {
-        setState(() {
-          var map = value.data() as Map<String, dynamic>;
-          category = map["name"];
-        });
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Ink(
@@ -59,23 +43,12 @@ class _FoodItemState extends State<FoodItem> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [AppStyles().largeBoxShadow],
+                  color: AppColors.primaryColor.withAlpha(30),
                 ),
-                child: ClipRRect(
-                  borderRadius: AppStyles.defaultBorderRadius,
-                  child: widget.food.image == null
-                      ? ImagePlaceholder(
-                          iconData: Icons.fastfood,
-                          iconSize: 30,
-                        )
-                      : Image.network(
-                          widget.food.image!,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return const Center(
-                              child: Icon(Icons.error),
-                            );
-                          },
-                        ),
+                child: Icon(
+                  Icons.fastfood,
+                  size: 30,
+                  color: AppColors.primaryColor,
                 ),
               ),
               const SizedBox(width: 20),
@@ -88,7 +61,7 @@ class _FoodItemState extends State<FoodItem> {
                       style: CustomTextStyle.size16Weight400Text(),
                     ),
                     Text(
-                      category,
+                      widget.food.categoryName ?? 'Food',
                       style: CustomTextStyle.size14Weight400Text(
                         AppColors().secondaryTextColor,
                       ),

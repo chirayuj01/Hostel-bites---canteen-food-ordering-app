@@ -19,7 +19,6 @@ import 'package:food_ninja/src/presentation/utils/custom_text_style.dart';
 import 'package:intl/intl.dart';
 
 import '../../../data/models/order_status.dart';
-import '../../widgets/buttons/primary_button.dart';
 
 class CanteenHomeScreen extends StatefulWidget {
   const CanteenHomeScreen({super.key});
@@ -30,8 +29,6 @@ class CanteenHomeScreen extends StatefulWidget {
 
 class _CanteenHomeScreenState extends State<CanteenHomeScreen> {
   int _selectedIndex = 0;
-
-  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
@@ -1239,3 +1236,4 @@ class CanteenOrderItem extends StatelessWidget {
 //             );
 //           },
 //         );
+

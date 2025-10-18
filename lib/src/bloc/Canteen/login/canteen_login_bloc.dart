@@ -22,21 +22,32 @@ class CanteenLoginBloc extends Bloc<LoginEvent, LoginState> {
           password: event.password,
         );
 
-        var userDocument = (await FirestoreDatabase().getDocumentsWithQuery(
+        // Get user document from Firestore
+        var querySnapshot = await FirestoreDatabase().getDocumentsWithQuery(
           "users",
           "email",
           event.email,
-        ))
-            .docs[0];
+        );
+
+        // Check if user document exists
+        if (querySnapshot.docs.isEmpty) {
+          await firebaseAuth.signOut();
+          emit(LoginError(error: 'Staff profile not found in database. Please contact support.'));
+          return;
+        }
+
+        var userDocument = querySnapshot.docs[0];
 
         // save user data to Hive
         final userData = userDocument.data() as Map<String, dynamic>;
         final userRole = userData['role'];
 
         if (userRole != 'staff') {
-          emit(LoginError(error: 'User not found.'));
+          await firebaseAuth.signOut();
+          emit(LoginError(error: 'Invalid user role. This login is for canteen staff only.'));
           return;
         }
+
         model.User user = model.User.fromMap(userData);
 
         user.id = userDocument.id;
@@ -56,9 +67,9 @@ class CanteenLoginBloc extends Bloc<LoginEvent, LoginState> {
           ),
         );
       } catch (e, s) {
-        debugPrint(e.toString());
-        debugPrint(s.toString());
-        emit(LoginError(error: e.toString()));
+        debugPrint('Canteen login error: ${e.toString()}');
+        debugPrint('Stack trace: ${s.toString()}');
+        emit(LoginError(error: 'Login failed. Please check your connection and try again.'));
       }
     });
   }

@@ -5,15 +5,13 @@ import 'package:hive/hive.dart';
 
 // ignore: must_be_immutable
 class Food extends Equatable {
-  final DocumentReference category;
-  final DocumentReference restaurant;
+  final String? category;
+  final String? categoryName;
   final String name;
   final double price;
-  // final List<String>? ingredients;
   final DateTime createdAt;
-  final String? image;
   final String? description;
-  // final double? discount;
+  final bool available;
 
   // for cart
   int quantity = 0;
@@ -22,45 +20,40 @@ class Food extends Equatable {
   String? id;
 
   Food({
-    required this.category,
-    required this.restaurant,
+    this.category,
+    this.categoryName,
     required this.name,
     required this.price,
-    //  this.ingredients,
     required this.createdAt,
-    this.image,
-    // this.discount,
     this.description,
     required this.quantity,
+    this.available = true,
   });
 
   factory Food.fromMap(Map<String, dynamic> map) {
     return Food(
-      image: map['image'],
-      category: map['category'],
-      restaurant: map['restaurant'],
+      category: map['category'] as String?,
+      categoryName: map['categoryName'] as String?,
       name: map['name'],
-      price: map['price'] * 1.0,
-      // ingredients: List<String>.from(map['ingredients'] ?? const []),
-      createdAt: map['createdAt'].toDate(),
-      // discount: map['discount'] * 1.0 ?? 0.0,
+      price: (map['price'] ?? 0) * 1.0,
+      createdAt: (map['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
       description: map['description'],
       quantity: map['quantity'] ?? 0,
+      available: map['available'] ?? true,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'image': image,
       'category': category,
-      'restaurant': restaurant,
+      'categoryName': categoryName,
       'name': name,
       'price': price,
-      // 'ingredients': ingredients,
-      'createdAt': createdAt,
-      // 'discount': discount ?? 0.0,
+      'createdAt': Timestamp.fromDate(createdAt),
       'description': description ?? '',
+      'quantity': quantity,
+      'available': available,
     };
   }
 
@@ -69,10 +62,9 @@ class Food extends Equatable {
     final box = Hive.box('myBox');
     final favorites = box.get('favoriteFoods') as List<dynamic>?;
     if (favorites == null || favorites.isEmpty) return false;
-    DocumentReference ref = FirebaseFirestore.instance.doc('/foods/$id');
-    return favorites.contains(ref);
+    return favorites.contains(id);
   }
 
   @override
-  List<Object> get props => [name, createdAt];
+  List<Object?> get props => [name, createdAt, id];
 }

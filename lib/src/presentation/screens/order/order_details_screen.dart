@@ -155,30 +155,18 @@ class OrderDetailsScreen extends StatelessWidget {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              ClipRRect(
-                                borderRadius: AppStyles.defaultBorderRadius,
-                                child: item.image != null
-                                    ? Image.network(
-                                        item.image!,
-                                        fit: BoxFit.cover,
-                                        width: 64,
-                                        height: 64,
-                                        errorBuilder:
-                                            (context, error, stackTrace) {
-                                          return ImagePlaceholder(
-                                            iconData: Icons.fastfood,
-                                            iconSize: 30,
-                                            width: 64,
-                                            height: 64,
-                                          );
-                                        },
-                                      )
-                                    : ImagePlaceholder(
-                                        iconData: Icons.fastfood,
-                                        iconSize: 30,
-                                        width: 64,
-                                        height: 64,
-                                      ),
+                              Container(
+                                width: 64,
+                                height: 64,
+                                decoration: BoxDecoration(
+                                  borderRadius: AppStyles.defaultBorderRadius,
+                                  color: AppColors.primaryColor.withAlpha(30),
+                                ),
+                                child: Icon(
+                                  Icons.fastfood,
+                                  size: 30,
+                                  color: AppColors.primaryColor,
+                                ),
                               ),
                               const SizedBox(width: 16),
                               Column(

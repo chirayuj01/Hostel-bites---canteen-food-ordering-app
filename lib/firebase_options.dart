@@ -59,4 +59,5 @@ class DefaultFirebaseOptions {
     projectId: 'hostel-bites-d9967',
     storageBucket: 'hostel-bites-d9967.firebasestorage.app',
   );
+
 }

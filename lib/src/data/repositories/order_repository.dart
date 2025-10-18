@@ -102,6 +102,10 @@ class OrderRepository {
       throw Exception("User email not set.");
     }
     
+    if (cart.isEmpty) {
+      throw Exception("Cart is empty.");
+    }
+
     final model.Order order = model.Order(
       cart: [...cart],
       subtotal: subtotal,
@@ -111,8 +115,6 @@ class OrderRepository {
       createdAt: DateTime.now(),
       status: OrderStatus.pending,
       userEmail: email,
-      // name: name,
-      restaurant: cart[0].restaurant,
       paymentMethod: box.get('paymentMethod', defaultValue: 'visa') == 'visa'
           ? PaymentMethod.visa
           : PaymentMethod.paypal,

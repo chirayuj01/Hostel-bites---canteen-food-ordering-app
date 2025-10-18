@@ -12,7 +12,6 @@ import 'package:food_ninja/src/data/models/testimonial.dart';
 import 'package:food_ninja/src/presentation/widgets/buttons/like_button.dart';
 import 'package:food_ninja/src/presentation/widgets/food_card.dart';
 import 'package:food_ninja/src/presentation/widgets/image_placeholder.dart';
-import 'package:food_ninja/src/presentation/widgets/items/testimonial_item.dart';
 import 'package:food_ninja/src/presentation/utils/app_colors.dart';
 import 'package:food_ninja/src/presentation/utils/app_styles.dart';
 import 'package:food_ninja/src/presentation/utils/custom_text_style.dart';
@@ -118,7 +117,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen> {
                           border: Border(
                             top: BorderSide(
                                 width: 0.5,
-                                color: AppColors.kMain.withOpacity(0.4)),
+                                color: AppColors.kMain.withValues(alpha: 0.4)),
                           ),
                         ),
                       ),
@@ -151,8 +150,8 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen> {
                                 borderRadius: AppStyles.largeBorderRadius,
                                 gradient: LinearGradient(
                                   colors: [
-                                    AppColors.primaryColor.withOpacity(0.1),
-                                    AppColors.primaryDarkColor.withOpacity(0.1),
+                                    AppColors.primaryColor.withValues(alpha: 0.1),
+                                    AppColors.primaryDarkColor.withValues(alpha: 0.1),
                                   ],
                                   begin: Alignment.topLeft,
                                   end: Alignment.bottomRight,

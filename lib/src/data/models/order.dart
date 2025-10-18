@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:food_ninja/src/data/models/food.dart';
 import 'package:food_ninja/src/data/models/order_status.dart';
@@ -11,8 +10,6 @@ class Order extends Equatable {
   final double deliveryFee;
   final double discount;
   final double total;
-  // final String name;
-  final DocumentReference restaurant;
   final String userEmail;
   final OrderStatus status;
   final DateTime createdAt;
@@ -27,9 +24,7 @@ class Order extends Equatable {
     required this.deliveryFee,
     required this.discount,
     required this.total,
-    required this.restaurant,
     required this.userEmail,
-    // required this.name,
     required this.status,
     required this.createdAt,
     required this.paymentMethod,
@@ -42,9 +37,7 @@ class Order extends Equatable {
       deliveryFee: map['deliveryFee'] * 1.0,
       discount: map['discount'] * 1.0,
       total: map['total'] * 1.0,
-      restaurant: map['restaurant'],
       userEmail: map['userEmail'],
-      // name: map['name'],
       status: OrderStatus.values[map['status']],
       createdAt: map['createdAt'].toDate(),
       paymentMethod: PaymentMethod.values[map['paymentMethod']],
@@ -64,10 +57,8 @@ class Order extends Equatable {
       'deliveryFee': deliveryFee,
       'discount': discount,
       'total': total,
-      'restaurant': restaurant,
       'userEmail': userEmail,
       'status': status.index,
-      // 'name':name,
       'createdAt': createdAt,
       'paymentMethod': paymentMethod.index,
     };
@@ -81,11 +72,9 @@ class Order extends Equatable {
         deliveryFee,
         discount,
         total,
-        restaurant,
         userEmail,
         status,
         createdAt,
-        // name,
         paymentMethod,
       ];
 }

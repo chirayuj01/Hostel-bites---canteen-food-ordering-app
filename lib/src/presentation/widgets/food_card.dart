@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:food_ninja/src/data/models/food.dart';
-import 'package:food_ninja/src/presentation/widgets/image_placeholder.dart';
 import 'package:food_ninja/src/presentation/utils/app_colors.dart';
 import 'package:food_ninja/src/presentation/utils/app_styles.dart';
 import 'package:food_ninja/src/presentation/utils/custom_text_style.dart';
@@ -32,36 +31,21 @@ class FoodCard extends StatelessWidget {
         },
         child: Column(
           children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(10),
-                topRight: Radius.circular(10),
+            Container(
+              height: 100,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: AppColors.primaryColor.withAlpha(30),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                ),
               ),
-              child: food.image == null
-                  ? ImagePlaceholder(
-                      width: double.infinity,
-                      height: 100,
-                      iconData: Icons.fastfood,
-                      iconSize: 50,
-                    )
-                  : Image.network(
-                      food.image!,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: 100,
-                      errorBuilder: (
-                        context,
-                        error,
-                        stackTrace,
-                      ) {
-                        return ImagePlaceholder(
-                          width: double.infinity,
-                          height: 100,
-                          iconData: Icons.fastfood,
-                          iconSize: 50,
-                        );
-                      },
-                    ),
+              child: Icon(
+                Icons.fastfood,
+                size: 50,
+                color: AppColors.primaryColor,
+              ),
             ),
             const SizedBox(height: 10),
             Text(

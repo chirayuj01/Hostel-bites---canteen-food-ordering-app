@@ -5,11 +5,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:food_ninja/src/presentation/widgets/items/food_item.dart';
 
 import '../../../bloc/food/food_bloc.dart';
-import '../../../bloc/restaurant/restaurant_bloc.dart';
 import '../../../data/models/food.dart';
+import '../../utils/app_colors.dart';
 import '../../utils/custom_text_style.dart';
 import '../../widgets/buttons/back_button.dart';
 import '../../widgets/search_filter_widget.dart';
+import 'add_menu_item_screen.dart';
 
 class CanteenMenu extends StatefulWidget {
   const CanteenMenu({super.key});
@@ -49,6 +50,19 @@ class _CanteenMenuState extends State<CanteenMenu> {
     });
 
     super.initState();
+  }
+
+  void _refreshMenu() {
+    // Clear existing data and reload
+    _foods.clear();
+    _filteredFoods.clear();
+    _lastDocument = null;
+    BlocProvider.of<FoodBloc>(context).add(
+      LoadFoods(
+        limit: _foodLimit,
+        lastDocument: null,
+      ),
+    );
   }
 
   @override
@@ -152,6 +166,27 @@ class _CanteenMenuState extends State<CanteenMenu> {
                 ),
               ),
             ],
+          ),
+          floatingActionButton: FloatingActionButton.extended(
+            onPressed: () async {
+              final result = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const AddMenuItemScreen(),
+                ),
+              );
+
+              // Refresh menu if item was added successfully
+              if (result == true) {
+                _refreshMenu();
+              }
+            },
+            backgroundColor: AppColors.primaryColor,
+            icon: const Icon(Icons.add, color: Colors.white),
+            label: const Text(
+              'Add Item',
+              style: TextStyle(color: Colors.white),
+            ),
           ),
         ),
       ),

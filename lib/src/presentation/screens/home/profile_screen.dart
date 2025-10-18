@@ -5,8 +5,6 @@ import 'package:food_ninja/src/bloc/theme/theme_bloc.dart';
 import 'package:food_ninja/src/data/models/user.dart';
 import 'package:food_ninja/src/presentation/Delivery/Form/registration.dart';
 import 'package:food_ninja/src/presentation/widgets/image_placeholder.dart';
-import 'package:food_ninja/src/presentation/widgets/items/food_item.dart';
-import 'package:food_ninja/src/presentation/widgets/items/restaurant_item.dart';
 import 'package:food_ninja/src/presentation/utils/app_colors.dart';
 import 'package:food_ninja/src/presentation/utils/app_styles.dart';
 import 'package:food_ninja/src/presentation/utils/custom_text_style.dart';

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:food_ninja/src/bloc/order/order_bloc.dart';
-import 'package:food_ninja/src/presentation/screens/order/order_tracking.dart';
 import 'package:food_ninja/src/presentation/screens/set_location_map_screen.dart';
 import 'package:food_ninja/src/presentation/widgets/buttons/back_button.dart';
 import 'package:food_ninja/src/presentation/widgets/loading_indicator.dart';
@@ -236,7 +235,7 @@ class OrderConfirmScreen extends StatelessWidget {
                                     BlocBuilder<OrderBloc, OrderState>(
                                       builder: (context, state) {
                                         return Text(
-                                          "prateek@****",
+                                          "chirayujain93@****",
                                           style: CustomTextStyle
                                               .size16Weight400Text(),
                                         );

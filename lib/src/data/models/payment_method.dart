@@ -8,8 +8,6 @@ enum PaymentMethod {
         return 'Visa';
       case PaymentMethod.paypal:
         return 'Paypal';
-      default:
-        return '';
     }
   }
 }

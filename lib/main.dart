@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_ninja/src/bloc/Canteen/login/canteen_login_bloc.dart';
@@ -24,9 +25,14 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  // Initialize Firebase App Check with debug provider
+  await FirebaseAppCheck.instance.activate(
+    androidProvider: AndroidProvider.debug,
+  );
+
   await Hive.initFlutter();
   Hive.registerAdapter(FirestoreDocumentReferenceAdapter());
-  Hive.registerAdapter(RestaurantAdapter());
   Hive.registerAdapter(FoodAdapter());
   await Hive.openBox('myBox');
 

@@ -30,37 +30,76 @@ class _SetLocationMapScreenState extends State<SetLocationMapScreen> {
   }
 
   Future<void> _fetchCurrentLocation() async {
-    final position = await Geoservices().getCurrentLocation();
-    if (mounted) {
-      final location = LatLng(position.latitude, position.longitude);
-      String place = await Geoservices().reverseGeocoding(
-        location.latitude,
-        location.longitude,
-      );
+    try {
+      final position = await Geoservices().getCurrentLocation();
+      if (mounted) {
+        final location = LatLng(position.latitude, position.longitude);
+        String place = await Geoservices().reverseGeocoding(
+          location.latitude,
+          location.longitude,
+        );
 
-      setState(() {
-        _currentPosition = position;
-        selectedLocation = location;
-        _placeName = place;
-      });
+        setState(() {
+          _currentPosition = position;
+          selectedLocation = location;
+          _placeName = place;
+        });
+      }
+    } catch (e) {
+      debugPrint('Error fetching location: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: AppColors.errorColor,
+            content: Text('Failed to get location: ${e.toString()}'),
+            duration: const Duration(seconds: 3),
+          ),
+        );
+        // Set default location as fallback
+        setState(() {
+          _currentPosition = Position(
+            latitude: 28.6139, // Example: New Delhi
+            longitude: 77.2090,
+            timestamp: DateTime.now(),
+            accuracy: 0.0,
+            altitude: 0.0,
+            heading: 0.0,
+            speed: 0.0,
+            speedAccuracy: 0.0,
+            altitudeAccuracy: 0.0,
+            headingAccuracy: 0.0,
+          );
+          selectedLocation = const LatLng(28.6139, 77.2090);
+          _placeName = 'Location unavailable - Using default';
+        });
+      }
     }
   }
 
   void _selectLocation(LatLng position) async {
     setState(() {
       selectedLocation = position;
-      _placeName = null; // Show loading state
+      _placeName = 'Fetching address...'; // Show loading state
     });
 
-    String place = await Geoservices().reverseGeocoding(
-      position.latitude,
-      position.longitude,
-    );
+    try {
+      String place = await Geoservices().reverseGeocoding(
+        position.latitude,
+        position.longitude,
+      );
 
-    if (mounted) {
-      setState(() {
-        _placeName = place;
-      });
+      if (mounted) {
+        setState(() {
+          _placeName = place;
+        });
+      }
+    } catch (e) {
+      debugPrint('Error getting place name: $e');
+      if (mounted) {
+        setState(() {
+          _placeName = 'Address unavailable';
+        });
+      }
     }
   }
 
